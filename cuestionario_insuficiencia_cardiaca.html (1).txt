@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cuestionario Insuficiencia Cardíaca</title>
+<style>
+body { font-family: Arial, sans-serif; max-width: 700px; margin: auto; padding: 1rem; }
+h1 { text-align: center; }
+.pregunta { margin-bottom: 1.5rem; }
+.opcion { margin-left: 1rem; }
+button { padding: 0.5rem 1rem; font-size: 1rem; }
+#resultado { font-weight: bold; margin-top: 1rem; }
+</style>
+</head>
+<body>
+
+<h1>Cuestionario sobre Insuficiencia Cardíaca</h1>
+<p>Seleccione la opción correcta para cada pregunta.</p>
+
+<form id="cuestionarioForm"></form>
+
+<button id="submitBtn">Enviar respuestas</button>
+
+<p id="resultado"></p>
+
+<script>
+const cuestionario = {
+titulo: "Cuestionario de Autocuidados y Conocimientos sobre Insuficiencia Cardíaca",
+instrucciones: "Seleccione la opción correcta para cada pregunta. Solo una respuesta válida por pregunta.",
+preguntas: [
+{
+id: 1,
+texto: "¿Con qué frecuencia debe controlar su peso corporal?",
+opciones: [
+{id: "a", texto: "Cada semana"},
+{id: "b", texto: "Solo cuando se sienta mal"},
+{id: "c", texto: "Todos los días, a la misma hora"},
+{id: "d", texto: "Una vez al mes"}
+],
+respuesta_correcta: "c"
+},
+{
+id: 2,
+texto: "¿Qué debe hacer si nota que tiene más dificultad para respirar de lo habitual?",
+opciones: [
+{id: "a", texto: "Esperar unos días y observar"},
+{id: "b", texto: "Aumentar la actividad física"},
+{id: "c", texto: "Tomar un calmante"},
+{id: "d", texto: "Consultar de inmediato con su equipo médico"}
+],
+respuesta_correcta: "d"
+},
+{
+id: 3,
+texto: "¿Qué debe tener en cuenta al leer las etiquetas de los alimentos?",
+opciones: [
+{id: "a", texto: "El precio"},
+{id: "b", texto: "El contenido de sal o sodio"},
+{id: "c", texto: "La fecha de caducidad únicamente"},
+{id: "d", texto: "Si son productos ecológicos"}
+],
+respuesta_correcta: "b"
+},
+{
+id: 4,
+texto: "¿Cuál de los siguientes síntomas puede indicar una descompensación de su insuficiencia cardíaca?",
+opciones: [
+{id: "a", texto: "Hinchazón en los tobillos"},
+{id: "b", texto: "Aumento de apetito"},
+{id: "c", texto: "Estreñimiento"},
+{id: "d", texto: "Dolor en los brazos"}
+],
+respuesta_correcta: "a"
+},
+{
+id: 5,
+texto: "Un aumento de peso rápido (más de 2 kilos en 2 días) puede significar:",
+opciones: [
+{id: "a", texto: "Que ha ganado masa muscular"},
+{id: "b", texto: "Que está comiendo mejor"},
+{id: "c", texto: "Retención de líquidos por descompensación cardíaca"},
+{id: "d", texto: "Que necesita dormir más"}
+],
+respuesta_correcta: "c"
+},
+{
+id: 6,
+texto: "¿Qué debe hacer si olvida una dosis de su medicación habitual?",
+opciones: [
+{id: "a", texto: "Tomar el doble en la siguiente dosis"},
+{id: "b", texto: "No pasa nada, continuar como si nada"},
+{id: "c", texto: "Consultar con su médico o enfermera"},
+{id: "d", texto: "Suspender el tratamiento unos días"}
+],
+respuesta_correcta: "c"
+},
+{
+id: 7,
+texto: "¿Qué es importante hacer respecto a los medicamentos?",
+opciones: [
+{id: "a", texto: "Tomarlos solo cuando haya síntomas"},
+{id: "b", texto: "Tomarlos todos los días, a la misma hora, tal como se le ha indicado"},
+{id: "c", texto: "Dejar de tomarlos si se siente bien"},
+{id: "d", texto: "Cambiar las dosis según se sienta"}
+],
+respuesta_correcta: "b"
+},
+{
+id: 8,
+texto: "¿Qué tipo de ejercicio es más recomendable en pacientes con IC?",
+opciones: [
+{id: "a", texto: "Ninguno, solo reposo"},
+{id: "b", texto: "Caminar o bicicleta estática de forma regular y moderada"},
+{id: "c", texto: "Ejercicio de fuerza intensa"},
+{id: "d", texto: "Deportes de contacto"}
+],
+respuesta_correcta: "b"
+},
+{
+id: 9,
+texto: "¿Qué bebidas debe evitar si tiene IC?",
+opciones: [
+{id: "a", texto: "Agua con gas"},
+{id: "b", texto: "Infusiones suaves"},
+{id: "c", texto: "Alcohol y bebidas energéticas"},
+{id: "d", texto: "Zumo de frutas"}
+],
+respuesta_correcta: "c"
+},
+{
+id: 10,
+texto: "¿Por qué es importante seguir una dieta baja en sal?",
+opciones: [
+{id: "a", texto: "Para perder peso"},
+{id: "b", texto: "Para reducir la retención de líquidos y la carga cardíaca"},
+{id: "c", texto: "Porque lo recomienda la televisión"},
+{id: "d", texto: "Para prevenir el colesterol"}
+],
+respuesta_correcta: "b"
+},
+{
+id: 11,
+texto: "¿Está de acuerdo con la siguiente afirmación? “Aunque me sienta bien, seguiré con los controles y visitas programadas.”",
+opciones: [
+{id: "a", texto: "Sí"},
+{id: "b", texto: "No"},
+{id: "c", texto: "Solo si tengo síntomas"},
+{id: "d", texto: "Depende del médico"}
+],
+respuesta_correcta: "a"
+},
+{
+id: 12,
+texto: "¿Con qué frecuencia debe asistir a las revisiones médicas por insuficiencia cardíaca?",
+opciones: [
+{id: "a", texto: "Cada 6 años"},
+{id: "b", texto: "Solo en urgencias"},
+{id: "c", texto: "Con la periodicidad establecida por su equipo médico"},
+{id: "d", texto: "Nunca, si está estable"}
+],
+respuesta_correcta: "c"
+}
+]
+};
+
+const form = document.getElementById('cuestionarioForm');
+const resultado = document.getElementById('resultado');
+const submitBtn = document.getElementById('submitBtn');
+
+function cargarPreguntas() {
+cuestionario.preguntas.forEach(preg => {
+const div = document.createElement('div');
+div.className = 'pregunta';
+const preguntaTexto = document.createElement('p');
+preguntaTexto.textContent = preg.id + '. ' + preg.texto;
+div.appendChild(preguntaTexto);
+
+preg.opciones.forEach(opc => {
+const label = document.createElement('label');
+label.className = 'opcion';
+const input = document.createElement('input');
+input.type = 'radio';
+input.name = 'pregunta_' + preg.id;
+input.value = opc.id;
+label.appendChild(input);
+label.appendChild(document.createTextNode(' ' + opc.texto));
+div.appendChild(label);
+div.appendChild(document.createElement('br'));
+});
+
+form.appendChild(div);
+});
+}
+
+function calcularPuntaje() {
+let correctas = 0;
+let total = cuestionario.preguntas.length;
+for (const preg of cuestionario.preguntas) {
+const respuestas = document.getElementsByName('pregunta_' + preg.id);
+let respondida = false;
+for (const r of respuestas) {
+if (r.checked) {
+respondida = true;
+if (r.value === preg.respuesta_correcta) {
+correctas++;
+}
+}
+}
+if (!respondida) {
+alert('Por favor, responda la pregunta ' + preg.id);
+return null;
+}
+}
+return {correctas, total};
+}
+
+submitBtn.addEventListener('click', () => {
+const resultadoCalc = calcularPuntaje();
+if (!resultadoCalc) return;
+const {correctas, total} = resultadoCalc;
+resultado.textContent = `Has respondido correctamente ${correctas} de ${total} preguntas.`;
+// Puedes añadir interpretación aquí
+if (correctas >= 10) {
+resultado.textContent += " Nivel alto de conocimientos.";
+} else if (correctas >= 7) {
+resultado.textContent += " Nivel medio de conocimientos.";
+} else {
+resultado.textContent += " Nivel bajo de conocimientos, se recomienda refuerzo educativo.";
+}
+});
+
+cargarPreguntas();
+</script>
+
+</body>
+</html>
